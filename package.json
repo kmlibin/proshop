@@ -2,21 +2,31 @@
   "name": "proshop",
   "version": "1.0.0",
   "description": "ecommerce application built with MERN stack",
+  "type": "module",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kmlibin/proshop.git"
   },
-  "keywords": [
-    "Kelli"
-  ],
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/kmlibin/proshop/issues"
   },
-  "homepage": "https://github.com/kmlibin/proshop#readme"
+  "homepage": "https://github.com/kmlibin/proshop#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "dotenv": "^16.3.1",
+    "nodemon": "^3.0.1"
+  }
 }
