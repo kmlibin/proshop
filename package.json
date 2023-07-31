@@ -1,0 +1,22 @@
+{
+  "name": "proshop",
+  "version": "1.0.0",
+  "description": "ecommerce application built with MERN stack",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kmlibin/proshop.git"
+  },
+  "keywords": [
+    "Kelli"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kmlibin/proshop/issues"
+  },
+  "homepage": "https://github.com/kmlibin/proshop#readme"
+}
