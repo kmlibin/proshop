@@ -3,7 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 //we store the cart items in local storage, so first check local storage
 const initialState = localStorage.getItem("cart")
   ? JSON.parse(localStorage.getItem("cart"))
-  : { cartItems: [] };
+  : {
+      cartItems: [],
+      itemsPrice: 0.0,
+      taxPrice: 0.0,
+      shippingPrice: 0.0,
+      totalPrice: 0.0,
+    };
 
 const addDecimals = (num) => {
   return (Math.round(num * 100) / 100).toFixed(2);
@@ -16,7 +22,7 @@ const cartSlice = createSlice({
     addToCart: (state, action) => {
       const item = action.payload;
       const existItem = state.cartItems.find((i) => item._id === i._id);
-      //updates quantity?
+      //updates quantity
       if (existItem) {
         state.cartItems = state.cartItems.map((i) =>
           i._id === existItem._id ? item : i
