@@ -21,12 +21,17 @@ const CartScreen = () => {
 
   const addToCartHandler = async (product, qty) => {
     //sending product props plus updating qty state
-    dispatch(addToCart({...product, qty}))
-  }
+    dispatch(addToCart({ ...product, qty }));
+  };
 
   const deleteFromCartHandler = async (id) => {
-    dispatch(deleteFromCart(id))
-  }
+    dispatch(deleteFromCart(id));
+  };
+
+  const checkoutHandler = () => {
+    //if we are logged in, it will redirect us to shipping
+    navigate("/login?redirect=/shipping");
+  };
 
   return (
     <Row>
@@ -52,7 +57,9 @@ const CartScreen = () => {
                     <Form.Control
                       as="select"
                       value={item.qty}
-                        onChange={(e) => addToCartHandler(item, Number(e.target.value))}
+                      onChange={(e) =>
+                        addToCartHandler(item, Number(e.target.value))
+                      }
                     >
                       {/* creates an array with the length of however many products are in stock...keys method creates an array of indexes
                           which start at 0. so, add 1 b/c we don't want 0 as quantity */}
@@ -66,7 +73,11 @@ const CartScreen = () => {
                     </Form.Control>
                   </Col>
                   <Col md={2}>
-                    <Button type="button" variant="light" onClick={() => deleteFromCartHandler(item._id)}>
+                    <Button
+                      type="button"
+                      variant="light"
+                      onClick={() => deleteFromCartHandler(item._id)}
+                    >
                       <FaTrash />
                     </Button>
                   </Col>
@@ -94,6 +105,7 @@ const CartScreen = () => {
                 type="button"
                 className="btn-block"
                 disabled={cartItems.length === 0}
+                onClick={checkoutHandler}
               >
                 Proceed to Checkout
               </Button>
