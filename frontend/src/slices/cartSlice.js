@@ -19,6 +19,7 @@ const cartSlice = createSlice({
     //action
     addToCart: (state, action) => {
       const item = action.payload;
+      console.log(item);
       const existItem = state.cartItems.find((i) => item._id === i._id);
       //updates quantity
       if (existItem) {
@@ -29,10 +30,18 @@ const cartSlice = createSlice({
         state.cartItems = [...state.cartItems, item];
       }
       //updates shipping, tax, price
-     return updateCart(state);
+      return updateCart(state);
+    },
+    deleteFromCart: (state, action) => {
+      //payload is item id we want to delete
+      state.cartItems = state.cartItems.filter(
+        (item) => item._id !== action.payload
+      );
+      //update local storage and prices
+      return updateCart(state)
     },
   },
 });
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, deleteFromCart } = cartSlice.actions;
 export default cartSlice.reducer;
