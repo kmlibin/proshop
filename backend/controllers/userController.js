@@ -1,13 +1,13 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import User from "../models/userModel.js";
-import jwt from "jsonwebtoken";
+import generateToken from "../utils/generateToken.js";
 
 //@desc auth user and get token
 //@route POST /api/users/login
 //@access Public
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-  console.log(req.body);
+ 
   //check for email and password
   if (!email | !password) {
     res.status(400).send("please provide username and password");
@@ -17,19 +17,7 @@ const authUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
   //compare password as well
   if (user && (await user.matchPassword(password))) {
-    //create token...object that takes in the payload, secret, expires in
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "30d",
-    });
-
-    //set JWT as htto-only cookie, on server
-    res.cookie("jwt", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV !== "development",
-      sameSite: "strict",
-      //30 days in ms
-      maxAge: 30 * 24 * 60 * 60 * 1000,
-    });
+    generateToken(res, user._id);
     res.status(200).json({
       _id: user._id,
       name: user.name,
@@ -46,7 +34,32 @@ const authUser = asyncHandler(async (req, res) => {
 //@route POST /api/users
 //@access Public
 const registerUser = asyncHandler(async (req, res) => {
-  
+  const { name, email, password } = req.body;
+  //check if user exists
+  const userExists = await User.findOne({ email });
+  if (userExists) {
+    res.status(400);
+    throw new Error("user already exists");
+  }
+  //create user
+  const user = await User.create({
+    name,
+    email,
+    password,
+  });
+
+  if (user) {
+    generateToken(res, user._id);
+    res.status(200).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    });
+  } else {
+    res.status(400);
+    throw new Error("invalid user data");
+  }
 });
 
 //@desc logout user and clear the cookie
