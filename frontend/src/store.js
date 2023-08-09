@@ -8,7 +8,7 @@ const store = configureStore({
     //don't have to bring other api reducers in because we are using apiSlice.inject endpoints
     [apiSlice.reducerPath]: apiSlice.reducer,
     cart: cartSliceReducer,
-    auth: authSliceReducer
+    auth: authSliceReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
