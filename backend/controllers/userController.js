@@ -9,9 +9,9 @@ const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   //check for email and password
-  if (!email | !password) {
-    res.status(400).send("please provide username and password");
-  }
+//   if (!email | !password) {
+//     res.status(400).send("please provide username and password");
+//   }
 
   //create user
   const user = await User.findOne({ email });
@@ -25,8 +25,7 @@ const authUser = asyncHandler(async (req, res) => {
       isAdmin: user.isAdmin,
     });
   } else {
-    res.status(401);
-    throw new Error("invalid credentials");
+    res.status(401).json({ message: "invalid credentials" });
   }
 });
 
@@ -112,8 +111,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       isAdmin: updatedUser.isAdmin,
     });
   } else {
-    res.status(404);
-    throw new Error("user not found");
+    res.status(401).json({ message: "invalid credentials" });
   }
 });
 
