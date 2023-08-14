@@ -14,7 +14,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    //call when we get cookie back. we store the user info , NOT token
+    //call when we get cookie back. we store the user info in local storage , NOT token
     setCredentials: (state, action) => {
       state.userInfo = action.payload;
       localStorage.setItem("userInfo", JSON.stringify(action.payload));
