@@ -49,11 +49,15 @@ const cartSlice = createSlice({
     },
     saveShippingAddress: (state, action) => {
       state.shippingAddress = action.payload;
-      localStorage.setItem("cart", JSON.stringify(state));
+      return updateCart(state);
     },
+    savePaymentMethod: (state, action) => {
+      state.paymentMethod = action.payload;
+      return updateCart(state)
+    }
   },
 });
 
-export const { addToCart, deleteFromCart, saveShippingAddress } =
+export const { addToCart, deleteFromCart, saveShippingAddress, savePaymentMethod } =
   cartSlice.actions;
 export default cartSlice.reducer;
