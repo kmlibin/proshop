@@ -10,6 +10,13 @@ const initialState = localStorage.getItem("cart")
       taxPrice: 0.0,
       shippingPrice: 0.0,
       totalPrice: 0.0,
+      shippingAddress: {
+        address: "",
+        city: "",
+        zipCode: "",
+        country: "",
+      },
+      paymentMethod: "PayPal",
     };
 
 const cartSlice = createSlice({
@@ -38,10 +45,15 @@ const cartSlice = createSlice({
         (item) => item._id !== action.payload
       );
       //update local storage and prices
-      return updateCart(state)
+      return updateCart(state);
+    },
+    saveShippingAddress: (state, action) => {
+      state.shippingAddress = action.payload;
+      localStorage.setItem("cart", JSON.stringify(state));
     },
   },
 });
 
-export const { addToCart, deleteFromCart } = cartSlice.actions;
+export const { addToCart, deleteFromCart, saveShippingAddress } =
+  cartSlice.actions;
 export default cartSlice.reducer;
