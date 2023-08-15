@@ -2,6 +2,8 @@ export const addDecimals = (num) => {
   return (Math.round(num * 100) / 100).toFixed(2);
 };
 
+
+//updates local storage
 export const updateCart = (state) => {
   //calculate all items price...0 is the default for the accumulator. go through each and multiply item.price * qty
   state.itemsPrice = addDecimals(
