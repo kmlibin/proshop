@@ -7,7 +7,7 @@ import Order from "../models/orderModel.js";
 const createOrder = asyncHandler(async (req, res) => {
   console.log(req.body);
   const {
-    orderItems,
+    cartItems,
     shippingAddress,
     paymentMethod,
     itemsPrice,
@@ -16,13 +16,13 @@ const createOrder = asyncHandler(async (req, res) => {
     totalPrice,
   } = req.body;
 
-  if (orderItems && orderItems.length === 0) {
+  if (cartItems && cartItems.length === 0) {
     res.status(400).json({ msg: "no order items" });
   } else {
-    //order model - order items has a product category that isn't passed with the frontend. we have to add it, which is why we mapped. it's
+    //order model - we have to add it, which is why we mapped. it's
     //linked with id.
     const order = new Order({
-      orderItems: orderItems.map((o) => ({
+      orderItems: cartItems.map((o) => ({
         ...o,
         product: o._id,
         _id: undefined,
@@ -53,14 +53,16 @@ const getMyOrders = asyncHandler(async (req, res) => {
 //@route   GET /api/orders/:id
 //@access  private/admin
 const getOrderById = asyncHandler(async (req, res) => {
-    //find by id, and also populate the user's name and email (from the 'user' schema)
-  const order = await Order.findById(req.params.id).populate('user', 'name email');
-  if(order) {
-   res.status(200).json(order) 
-  }else {
-    res.status(404).json({msg: 'order not found'})
+  //find by id, and also populate the user's name and email (from the 'user' schema)
+  const order = await Order.findById(req.params.id).populate(
+    "user",
+    "name email"
+  );
+  if (order) {
+    res.status(200).json(order);
+  } else {
+    res.status(404).json({ msg: "order not found" });
   }
-  
 });
 
 //@desc    Update Order to paid
