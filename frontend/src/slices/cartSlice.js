@@ -26,7 +26,6 @@ const cartSlice = createSlice({
     //action
     addToCart: (state, action) => {
       const item = action.payload;
-      console.log(item);
       const existItem = state.cartItems.find((i) => item._id === i._id);
       //updates quantity
       if (existItem) {
@@ -37,7 +36,8 @@ const cartSlice = createSlice({
         state.cartItems = [...state.cartItems, item];
       }
       //updates shipping, tax, price
-      return updateCart(state);
+      return updateCart(state, item);
+      
     },
     deleteFromCart: (state, action) => {
       //payload is item id we want to delete
