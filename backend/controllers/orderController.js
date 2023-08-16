@@ -51,7 +51,7 @@ const getMyOrders = asyncHandler(async (req, res) => {
 
 //@desc    Get order by ID
 //@route   GET /api/orders/:id
-//@access  private/admin
+//@access  private
 const getOrderById = asyncHandler(async (req, res) => {
   //find by id, and also populate the user's name and email (from the 'user' schema)
   const order = await Order.findById(req.params.id).populate(
