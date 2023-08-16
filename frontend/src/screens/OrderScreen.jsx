@@ -60,6 +60,48 @@ const OrderScreen = () => {
     }
   }, [order, paypal]);
 
+  //called when we click the paypal buttons and things go as planned
+  //check docs///"details" come from paypal
+  function onApprove(data, actions) {
+    //this is what triggers paypal
+    return actions.order.capture().then(async function (details) {
+      try {
+        await payOrder({ orderId, details });
+        refetch();
+        toast.success("Order is paid");
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
+      }
+    });
+  }
+
+  // TESTING ONLY! REMOVE BEFORE PRODUCTION
+  //changes isPaid flag from false to true
+  async function onApproveTest() {
+    await payOrder({ orderId, details: { payer: {} } });
+    refetch();
+
+    toast.success("Order is paid");
+  }
+
+  function onError(err) {
+    toast.error(err.message);
+  }
+
+  function createOrder(data, actions) {
+    return actions.order
+      .create({
+        purchase_units: [
+          {
+            amount: { value: order.totalPrice },
+          },
+        ],
+      })
+      .then((orderID) => {
+        return orderID;
+      });
+  }
+
   return isLoading ? (
     <Loader />
   ) : error ? (
@@ -147,7 +189,30 @@ const OrderScreen = () => {
                   <Col>${order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              {/* pay order placeholder */}
+              {!order.isPaid && (
+                <ListGroup.Item>
+                  {loadingPay && <Loader />}
+                  {isPending ? (
+                    <Loader />
+                  ) : (
+                    <div>
+                      {/* <Button
+                        onClick={onApproveTest}
+                        style={{ marginBottom: "20" }}
+                      >
+                        Test Pay Order
+                      </Button> */}
+                      <div>
+                        <PayPalButtons
+                          createOrder={createOrder}
+                          onApprove={onApprove}
+                          onError={onError}
+                        ></PayPalButtons>
+                      </div>
+                    </div>
+                  )}
+                </ListGroup.Item>
+              )}
               {/* mark as delivered placeholder */}
             </ListGroup>
           </Card>
