@@ -5,7 +5,6 @@ import Order from "../models/orderModel.js";
 //@route   POST /api/orders
 //@access  private
 const createOrder = asyncHandler(async (req, res) => {
-  
   const {
     cartItems,
     shippingAddress,
@@ -99,7 +98,9 @@ const updateOrderToDelivered = asyncHandler(async (req, res) => {
 //@route   GET /api/orders
 //@access  private/admin
 const getAllOrders = asyncHandler(async (req, res) => {
-  res.send("get orders");
+  //populate name and id from the user category
+  const orders = await Order.find({}).populate("user", "id name");
+  res.status(200).json(orders);
 });
 
 export {
