@@ -18,6 +18,7 @@ import {
   useGetOrderDetailsQuery,
   usePayOrderMutation,
   useGetPayPalClientIdQuery,
+  useDeliverOrderMutation,
 } from "../slices/ordersApiSlice";
 
 const OrderScreen = () => {
@@ -31,6 +32,8 @@ const OrderScreen = () => {
   } = useGetOrderDetailsQuery(orderId);
 
   const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
+  const [deliverOrder, { isLoading: loadingDeliver}] =
+    useDeliverOrderMutation();
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
   const {
     data: paypal,
@@ -101,6 +104,17 @@ const OrderScreen = () => {
         return orderID;
       });
   }
+
+  //mark order as delivered in db
+  const deliverOrderHandler = async () => {
+    try {
+      await deliverOrder(orderId); //changes in db, now need to refetch so that the red changes to green in ui - has to refetch data to refresh the ui
+      refetch();
+      toast.success("order delivered");
+    } catch (error) {
+      toast.error(error?.data?.message || error.message);
+    }
+  };
 
   return isLoading ? (
     <Loader />
@@ -213,7 +227,21 @@ const OrderScreen = () => {
                   )}
                 </ListGroup.Item>
               )}
-              {/* mark as delivered placeholder */}
+              {loadingDeliver && <Loader />}
+              {userInfo &&
+                userInfo.isAdmin &&
+                order.isPaid &&
+                !order.isDelivered && (
+                  <ListGroup.Item>
+                    <Button
+                      type="button"
+                      className="btn btn-block"
+                      onClick={deliverOrderHandler}
+                    >
+                      Mark as Delivered
+                    </Button>
+                  </ListGroup.Item>
+                )}
             </ListGroup>
           </Card>
         </Col>
