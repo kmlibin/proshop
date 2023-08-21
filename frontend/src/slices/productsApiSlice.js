@@ -13,12 +13,25 @@ export const productsApiSlice = apiSlice.injectEndpoints({
     }),
     getProductDetails: builder.query({
       query: (productId) => ({
-        url: `${PRODUCTS_URL}/${productId}`
+        url: `${PRODUCTS_URL}/${productId}`,
       }),
-      keepUnusedDataFor: 5
-    })
+      keepUnusedDataFor: 5,
+    }),
+    createProduct: builder.mutation({
+      //doesn't take anything in because it's just creating sample data; we aren't passing it anything from frontend
+      query: () => ({
+        url: PRODUCTS_URL,
+        method: "POST",
+      }),
+      //will stop it from being cached so we have fresh data
+      invalidatesTags: ["Product"],
+    }),
   }),
 });
 
 //this is what we use in our component whenever we want to fetch data
-export const { useGetProductsQuery, useGetProductDetailsQuery } = productsApiSlice;
+export const {
+  useGetProductsQuery,
+  useGetProductDetailsQuery,
+  useCreateProductMutation,
+} = productsApiSlice;
