@@ -91,8 +91,39 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
 //@route   PUT /api/orders/:id/deliver
 //@access  private/admin
 const updateOrderToDelivered = asyncHandler(async (req, res) => {
-  res.send("update to delivered");
+  try {
+    const order = await Order.findById(req.params.id);
+    console.log("Fetched Order:", order);
+
+    if (order && order._id.toString() === req.params.id) {
+      console.log("Order found and ID matches");
+
+      order.isDelivered = true;
+      order.deliveredAt = Date.now();
+
+      // Validate orderItems before saving
+      order.orderItems.forEach(item => {
+        if (!item.price) {
+          console.log("Missing price in order item:", item);
+          throw new Error("Missing price in order item");
+        }
+      });
+
+      const updatedOrder = await order.save();
+      console.log("Updated Order:", updatedOrder);
+
+      res.status(200).json(updatedOrder);
+    } else {
+      console.log("Order not found or ID doesn't match");
+      res.status(404);
+      throw new Error("Order not found");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "An error occurred" });
+  }
 });
+
 
 //@desc    get all orders
 //@route   GET /api/orders
