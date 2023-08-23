@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 import Loader from "../components/Loader.jsx";
 import Message from "../components/Message.jsx";
@@ -9,6 +9,7 @@ import { useGetProductsQuery } from "../slices/productsApiSlice.js";
 
 import Product from "../components/Product";
 import Paginate from "../components/Paginate.jsx";
+import ProductCarousel from "../components/ProductCarousel.jsx";
 
 const HomeScreen = () => {
   //set up the param in the routes called page number (index.js)
@@ -19,7 +20,9 @@ const HomeScreen = () => {
   });
   return (
     <>
-      {keyword && (
+      {!keyword ? (
+        <ProductCarousel />
+      ) : (
         <Link to="/" className="btn btn-light mb-4">
           Go Back
         </Link>
