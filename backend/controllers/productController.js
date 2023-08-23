@@ -7,7 +7,7 @@ import Product from "../models/productModel.js";
 const getAllProducts = asyncHandler(async (req, res) => {
   //...w/pagination, basically linking it to params, access thru req.query
   //create page size for pagination
-  const pageSize = 1;
+  const pageSize = 8;
   //get page number from frontend (or 1)
   const page = Number(req.query.pageNumber || 1);
   //use a regex so that it doesn't have to be an exact match. could send iphone10, and it would get matched for just phone. 'i' is case insensitive
