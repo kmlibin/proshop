@@ -7,14 +7,17 @@ import Product from "../models/productModel.js";
 const getAllProducts = asyncHandler(async (req, res) => {
   //...w/pagination, basically linking it to params, access thru req.query
   //create page size for pagination
-  const pageSize = 5;
+  const pageSize = 1;
   //get page number from frontend (or 1)
   const page = Number(req.query.pageNumber || 1);
-  console.log(req)
+  //use a regex so that it doesn't have to be an exact match. could send iphone10, and it would get matched for just phone. 'i' is case insensitive
+  const keyword = req.query.keyword
+    ? { name: { $regex: req.query.keyword, $options: "i" } }
+    : {};
   //get the amount of documents (products ) we have
-  const count = await Product.countDocuments();
+  const count = await Product.countDocuments({ ...keyword });
   //limit the amount we find to the page size, and then skip the necessary amount of products (if on 3rd page, skip 2nd and 1st pages)
-  const products = await Product.find({})
+  const products = await Product.find({ ...keyword })
     .limit(pageSize)
     .skip(pageSize * (page - 1));
   //send back page and amount of pages
