@@ -25,6 +25,7 @@ import {
 } from "../slices/productsApiSlice";
 
 import Rating from "../components/Rating";
+import Meta from "../components/Meta";
 
 const ProductScreen = () => {
   const [qty, setQty] = useState(1);
@@ -79,6 +80,7 @@ const ProductScreen = () => {
         </Message>
       ) : (
         <>
+        <Meta title={product.name} />
           <Row>
             {/* //cols equal 12 */}
             <Col md={5}>
