@@ -5,8 +5,20 @@ import Product from "../models/productModel.js";
 //@route GET /api/products
 //@access Public
 const getAllProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({});
-  res.status(200).json(products);
+  //...w/pagination, basically linking it to params, access thru req.query
+  //create page size for pagination
+  const pageSize = 5;
+  //get page number from frontend (or 1)
+  const page = Number(req.query.pageNumber || 1);
+  console.log(req)
+  //get the amount of documents (products ) we have
+  const count = await Product.countDocuments();
+  //limit the amount we find to the page size, and then skip the necessary amount of products (if on 3rd page, skip 2nd and 1st pages)
+  const products = await Product.find({})
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+  //send back page and amount of pages
+  res.status(200).json({ products, page, pages: Math.ceil(count / pageSize) });
 });
 
 //@desc fetch a single product
