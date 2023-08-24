@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from "react";
+
+//styling
 import { Table, Form, Button, Row, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { FaTimes } from "react-icons/fa";
-import Message from "../components/Message";
-import Loader from "../components/Loader";
+
+//rtk/redux
+import { useDispatch, useSelector } from "react-redux";
 import { useProfileMutation } from "../slices/usersApiSlice";
 import { useGetMyOrdersQuery } from "../slices/ordersApiSlice";
 import { setCredentials } from "../slices/authSlice";
+
+//components
+import Message from "../components/Message";
+import Loader from "../components/Loader";
 
 const ProfileScreen = () => {
   const [name, setName] = useState("");

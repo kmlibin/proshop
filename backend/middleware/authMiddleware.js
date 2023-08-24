@@ -1,5 +1,10 @@
+//helpers
 import jwt from "jsonwebtoken";
+
+//middlewares
 import asyncHandler from "./asyncHandler.js";
+
+//models
 import User from "../models/userModel.js";
 
 //protect routes for users that are registered

@@ -1,8 +1,12 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+
+//styling
 import { Container } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
+
+//components
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 

@@ -1,4 +1,5 @@
 import express from "express";
+//controllers
 import {
   createProduct,
   getAllProducts,
@@ -8,6 +9,7 @@ import {
   createProductReview,
   getTopProducts,
 } from "../controllers/productController.js";
+//middlewares
 import { protect, admin } from "../middleware/authMiddleware.js";
 
 const router = express.Router();

@@ -1,15 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Row, Col } from "react-bootstrap";
-import Loader from "../components/Loader.jsx";
-import Message from "../components/Message.jsx";
 import { useParams } from "react-router-dom";
 
-import { useGetProductsQuery } from "../slices/productsApiSlice.js";
+//styling
+import { Row, Col } from "react-bootstrap";
 
+//components
+import Loader from "../components/Loader.jsx";
+import Message from "../components/Message.jsx";
 import Product from "../components/Product";
 import Paginate from "../components/Paginate.jsx";
 import ProductCarousel from "../components/ProductCarousel.jsx";
+
+//RTK
+import { useGetProductsQuery } from "../slices/productsApiSlice.js";
 
 const HomeScreen = () => {
   //set up the param in the routes called page number (index.js)

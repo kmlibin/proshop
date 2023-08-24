@@ -1,6 +1,11 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+
+//RTK
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, deleteFromCart } from "../slices/cartSlice";
+
+//styling
 import {
   Row,
   Col,
@@ -11,8 +16,9 @@ import {
   Card,
 } from "react-bootstrap";
 import { FaTrash } from "react-icons/fa";
+
+//components
 import Message from "../components/Message";
-import { addToCart, deleteFromCart } from "../slices/cartSlice";
 
 const CartScreen = () => {
   const navigate = useNavigate();

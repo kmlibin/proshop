@@ -1,15 +1,23 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { Link } from "react-router-dom";
+
+//rtk/redux
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../slices/cartSlice.js";
+import {
+  useGetProductDetailsQuery,
+  useCreateReviewMutation,
+} from "../slices/productsApiSlice";
+
+//components
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import Rating from "../components/Rating";
+import Meta from "../components/Meta";
+
+//styling
 import { toast } from "react-toastify";
-
-//actions
-import { addToCart } from "../slices/cartSlice.js";
-
 import {
   Row,
   Col,
@@ -19,13 +27,6 @@ import {
   Button,
   Form,
 } from "react-bootstrap";
-import {
-  useGetProductDetailsQuery,
-  useCreateReviewMutation,
-} from "../slices/productsApiSlice";
-
-import Rating from "../components/Rating";
-import Meta from "../components/Meta";
 
 const ProductScreen = () => {
   const [qty, setQty] = useState(1);
@@ -80,7 +81,7 @@ const ProductScreen = () => {
         </Message>
       ) : (
         <>
-        <Meta title={product.name} />
+          <Meta title={product.name} />
           <Row>
             {/* //cols equal 12 */}
             <Col md={5}>

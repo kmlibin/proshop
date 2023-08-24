@@ -1,10 +1,16 @@
 import React from "react";
+
+//styling
 import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button } from "react-bootstrap";
 import { FaTrash, FaTimes, FaEdit, FaCheck } from "react-icons/fa";
 import { toast } from "react-toastify";
+
+//components
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
+
+//RTK
 import {
   useGetUsersQuery,
   useDeleteUserMutation,

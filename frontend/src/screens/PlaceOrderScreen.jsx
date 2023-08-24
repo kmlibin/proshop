@@ -1,10 +1,16 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
+//RTK / redux
 import { useSelector, useDispatch } from "react-redux";
 import { useCreateOrderMutation } from "../slices/ordersApiSlice";
 import { clearCartItems } from "../slices/cartSlice";
+
+//styling
 import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { toast } from "react-toastify";
+
+//components
 import CheckoutSteps from "../components/CheckoutSteps";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
@@ -38,7 +44,7 @@ const PlaceOrderScreen = () => {
       dispatch(clearCartItems());
       navigate(`/order/${res._id}`);
     } catch (error) {
-      toast.error(error)
+      toast.error(error);
     }
   };
 
@@ -82,7 +88,8 @@ const PlaceOrderScreen = () => {
                           <Link to={`/product/${item._id}`}>{item.name}</Link>
                         </Col>
                         <Col md={4}>
-                          {item.qty} x $ {item.price} = ${(item.qty * item.price).toFixed(2)}
+                          {item.qty} x $ {item.price} = $
+                          {(item.qty * item.price).toFixed(2)}
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -123,7 +130,9 @@ const PlaceOrderScreen = () => {
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
-                {error && <Message variant="danger">{error?.data?.message}</Message>}
+                {error && (
+                  <Message variant="danger">{error?.data?.message}</Message>
+                )}
               </ListGroup.Item>
               <ListGroup.Item>
                 <Button

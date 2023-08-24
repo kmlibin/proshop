@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+
+//styling
 import { Form, Button } from "react-bootstrap";
+import { toast } from "react-toastify";
+
+//components
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import FormContainer from "../../components/FormContainer";
-import { toast } from "react-toastify";
+
+//RTK
 import {
   useUpdateUserMutation,
   useGetUserDetailsQuery,

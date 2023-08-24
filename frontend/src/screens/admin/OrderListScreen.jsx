@@ -1,9 +1,15 @@
 import React from "react";
+
+//styling
 import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button } from "react-bootstrap";
 import { FaTimes } from "react-icons/fa";
+
+//components
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
+
+//RTK
 import { useGetOrdersQuery } from "../../slices/ordersApiSlice";
 
 const OrderListScreen = () => {
@@ -52,7 +58,7 @@ const OrderListScreen = () => {
                 </td>
                 <td>
                   <LinkContainer to={`/order/${order._id}`}>
-                    <Button variant = 'light' className='btn-sm'>
+                    <Button variant="light" className="btn-sm">
                       Details
                     </Button>
                   </LinkContainer>

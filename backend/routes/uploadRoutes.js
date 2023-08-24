@@ -1,5 +1,9 @@
-import path from "path";
 import express from "express";
+
+//modules
+import path from "path";
+
+//libraries
 import multer from "multer";
 
 const router = express.Router();

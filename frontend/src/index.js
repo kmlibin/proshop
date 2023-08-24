@@ -6,13 +6,20 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
+
+//rtk/redux
 import { Provider } from "react-redux";
+import store from "./store";
+
+//libraries
 import { HelmetProvider } from "react-helmet-async";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
-import store from "./store";
+
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/styles/bootstrap.custom.css";
 import "./assets/styles/index.css";
+
+//components
 import PrivateRoute from "./components/PrivateRoute";
 import App from "./App";
 import HomeScreen from "./screens/HomeScreen";

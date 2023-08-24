@@ -1,24 +1,25 @@
 import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import {
-  Row,
-  Col,
-  ListGroup,
-  Image,
-  Button,
-  Card,
-} from "react-bootstrap";
-import { useSelector } from "react-redux";
-import Message from "../components/Message";
-import Loader from "../components/Loader";
+
+//styling
+import { Row, Col, ListGroup, Image, Button, Card } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
+
+//RTK/Redux
+import { useSelector } from "react-redux";
 import {
   useGetOrderDetailsQuery,
   usePayOrderMutation,
   useGetPayPalClientIdQuery,
   useDeliverOrderMutation,
 } from "../slices/ordersApiSlice";
+
+//components
+import Message from "../components/Message";
+import Loader from "../components/Loader";
+
+//libraries
+import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 
 const OrderScreen = () => {
   const { id: orderId } = useParams();
@@ -31,7 +32,7 @@ const OrderScreen = () => {
   } = useGetOrderDetailsQuery(orderId);
 
   const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
-  const [deliverOrder, { isLoading: loadingDeliver}] =
+  const [deliverOrder, { isLoading: loadingDeliver }] =
     useDeliverOrderMutation();
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
   const {

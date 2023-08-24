@@ -1,12 +1,18 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+
+//styling
 import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button, Row, Col } from "react-bootstrap";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
+
+//components
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import Paginate from "../../components/Paginate";
+
+//RTK
 import {
   useGetProductsQuery,
   useCreateProductMutation,
@@ -101,7 +107,7 @@ const ProductListScreen = () => {
                 </tr>
               ))}
             </tbody>
-            <Paginate pages={data.pages} page={data.page} isAdmin={true}/>
+            <Paginate pages={data.pages} page={data.page} isAdmin={true} />
           </Table>
         </>
       )}
