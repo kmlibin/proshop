@@ -1,6 +1,6 @@
 # MERN Stack E-Commerce Site
 
-deploy on render: 
+deploy on render: https://proshop-5hgw.onrender.com
 
 This is a project to help me better understand how to merge Node.js, React, and Redux Toolkit; I used MongoDB as the database. Anyone can see the homepage and product information, but there are also several protected routes for either logged in users or admin. The site features user authentication with JWTs and http-only cookies, and it also stores user credentials in local storage. Logged in users can submit product reviews, view orders, edit their credentials, and checkout with PayPal. Admins can see a full list of users and orders, and can update certain fields in those databases. Admins are also able to add and delete products to the store. 
 
